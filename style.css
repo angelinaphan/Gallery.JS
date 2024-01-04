@@ -88,6 +88,9 @@ Make it animate nicely. You'll need CSS3 for this*/
 	opacity: 0.8;
 }
 
+.next {
+	float: right;
+}
 /*Add CSS styles to rotate the element 270deg
 Make it animate nicely. You'll need CSS3 for this*/
 .rot270 {
