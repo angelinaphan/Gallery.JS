@@ -33,10 +33,15 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
-	//Add code here to access the #slideShow element.
-	//Access the img element and replace its source
-	//with a new image from your images array which is loaded 
-	//from the JSON string
+	if(mCurrentIndex >= mImages.length)
+	{
+		mCurrentIndex = 0;
+	}
+
+	if(mCurrentIndex < 0) {
+		mCurrentIndex = mImages.length-1;
+	}
+	
 	console.log('swap photo');
 }
 
@@ -175,8 +180,8 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage() {
-	var location = "Australia";
-	var description = "Loch Ard Gorge";
-	var date = "01/01/2016";
-	var img = ("img/places/australia.jpg");
+	var location;
+	var description;
+	var date;
+	var img;
 };
