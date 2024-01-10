@@ -41,6 +41,9 @@ function swapPhoto() {
 	if(mCurrentIndex < 0) {
 		mCurrentIndex = mImages.length-1;
 	}
+
+	document.getElementById('photo').src = mImages[mCurrentIndex].img;
+	var loc = document.getElementsByClassName('location');
 	
 	console.log('swap photo');
 }
