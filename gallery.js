@@ -65,87 +65,18 @@ var mCurrentIndex = 0;
 var mRequest = new XMLHttpRequest();
 
 // Array holding GalleryImage objects (see below).
-var mImages = 
-[
+function iterateJSON(mJson)
+{
+	for( x = 0; x < mJson.images.length; x++)
 	{
-		"imgPath": "img/places/australia.jpg",
-		"imgLocation": "Australia",
-		"description": "Loch Ard Gorge",
-		"date": "01/01/2016"
-	},
-	{
-		"imgPath": "img/places/austria.jpg",
-		"imgLocation": "Austria",
-		"description": "Austrian chapel",
-		"date": "01/02/2016"
-	},
-	{
-		"imgPath": "img/places/france.jpg",
-		"imgLocation": "Paris",
-		"description": "Eiffel Tower",
-		"date": "01/03/2016"
-	},
-	{
-		"imgPath": "img/places/greece.jpg",
-		"imgLocation": "Greece",
-		"description": "Greek coastline",
-		"date": "01/04/2016"
-	},
-	{
-		"imgPath": "img/places/hungary.jpg",
-		"imgLocation": "Hungary",
-		"description": "Budapest skyline",
-		"date": "01/05/2016"
-	},
-	{
-		"imgPath": "img/places/india.jpg",
-		"imgLocation": "India",
-		"description": "Taj Mahal",
-		"date": "01/06/2016"
-	},
-	{
-		"imgPath": "img/places/italy.jpg",
-		"imgLocation": "Italy",
-		"description": "Venice",
-		"date": "01/07/2016"
-	},
-	{
-		"imgPath": "img/places/japan.jpg",
-		"imgLocation": "Japan",
-		"description": "Hirosaki Castle",
-		"date": "01/08/2016"
-	},
-	{
-		"imgPath": "img/places/korea.jpg",
-		"imgLocation": "South Korea",
-		"description": "Seoul",
-		"date": "01/09/2016"
-	},
-	{
-		"imgPath": "img/places/norway.jpg",
-		"imgLocation": "Norway",
-		"description": "Countryside mountains",
-		"date": "01/10/2016"
-	},
-	{
-		"imgPath": "img/places/switzerland.jpg",
-		"imgLocation": "Switzerland",
-		"description": "Lake castle",
-		"date": "01/11/2016"
-	},
-	{
-		"imgPath": "img/places/thailand.jpg",
-		"imgLocation": "Thailand",
-		"description": "Beachline",
-		"date": "01/12/2016"
-	},
-	{
-		"imgPath": "img/places/turkey.jpg",
-		"imgLocation": "Turkey",
-		"description": "Istanbul",
-		"date": "01/13/2016"
+		mImages[x] = new GalleryImage();
+		mImages[x].location = mJson.images[x].imgLocation;
+		mImages[x].description = mJson.images[x].description;
+		mImages[x].date = mJson.images[x].date;
+		mImages[x].img = mJson.images[x].imgPath;
+
 	}
-];
+}
 
 console.log(mImages);
 
@@ -197,4 +128,18 @@ function GalleryImage() {
 	var description;
 	var date;
 	var img;
+}
+
+function toggleDetails() 
+{
+	if($(".moreIndicator").hasClass("rot90"));
+	{
+		$( ".moreIndicator" ).removeClass("rot90");
+		$(".moreIndicator").addClass("rot270");
+	}
+	else {
+		$( ".moreIndicator" ).removeClass("rot270");
+		$(".moreIndicator").addClass("rot90");
+	}
+	$(".details").slideToggle("slow", "linear");
 };
