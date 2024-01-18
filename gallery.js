@@ -56,7 +56,7 @@ function swapPhoto() {
 	mCurrentIndex += 1;
 	
 	console.log('swap photo');
-}
+};
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -79,6 +79,7 @@ function iterateJSON(mJson)
 }
 
 console.log(mImages);
+
 
 // Holds the retrived JSON information
 var mJson;
@@ -113,9 +114,26 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
-	$('.details').eq(0).hide();
-	
+//	$('.details').eq(0).hide();
+	$("#nextPhoto").position({
+		my: "right bottom",
+		at: "right bottom",
+		of: "#nav"
+	})
 });
+
+const urlParams = new URLSearchParams(window.location.search);
+
+for (const [key, value] of urlParams) {
+	console.log(`$[key]:$[value]`);
+}
+if(mUrl == undefined)
+{
+	mUrl = 'images.json';
+}
+
+fetchJSON();
+
 
 window.addEventListener('load', function() {
 	
@@ -132,7 +150,7 @@ function GalleryImage() {
 
 function toggleDetails() 
 {
-	if($(".moreIndicator").hasClass("rot90"));
+	if($(".moreIndicator").hasClass("rot90"))
 	{
 		$( ".moreIndicator" ).removeClass("rot90");
 		$(".moreIndicator").addClass("rot270");
