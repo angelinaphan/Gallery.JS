@@ -46,16 +46,15 @@ function swapPhoto() {
 	var loc = document.getElementsByClassName('location');
 	loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
 
-	var loc = document.getElementsByClassName('description');
-	loc[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+	var des = document.getElementsByClassName('description');
+	des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
 
-	var loc = document.getElementsByClassName('date');
-	loc[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
+	var dt = document.getElementsByClassName('date');
+	dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
 	mLastFrameTime = 0;
 	mCurrentIndex += 1;
 	
-	console.log('swap photo');
 };
 
 // Counter for the mImages array
@@ -92,13 +91,13 @@ function fetchJSON()
 {
 mRequest.onreadystatechange = function() {
 	console.log("on ready state change");
-	if (mRequest.readyState === 4 && mRequest.status === 200) {
+	if (this.readyState == 4 && this.status == 200) {
 	mJson = JSON.parse(mRequest.responseText);
 	iterateJSON(mJson);
 }
-};
+}
 
-mRequest.open('GET', 'mUrl', true);
+mRequest.open("GET", mUrl, true);
 mRequest.send();
 };
 
@@ -133,6 +132,7 @@ if(mUrl == undefined)
 }
 
 fetchJSON();
+
 
 
 window.addEventListener('load', function() {
