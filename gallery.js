@@ -55,63 +55,18 @@ function swapPhoto() {
 	
 };
 
-function toggleDetails() 
-{
-	if($(".moreIndicator").hasClass("rot90"))
-	{
-		$( ".moreIndicator" ).removeClass("rot90");
-		$(".moreIndicator").addClass("rot270");
-	}
-	else {
-		$( ".moreIndicator" ).removeClass("rot270");
-		$(".moreIndicator").addClass("rot90");
-	}
-	$(".details").slideToggle("slow", "linear");
-}
-
-var mUrl = 'images.json';
-
-function fetchJSON()
-{
-mRequest.onreadystatechange = function() {
-	console.log("on ready state change");
-	if (this.readyState == 4 && this.status == 200) {
-	mJson = JSON.parse(mRequest.responseText);
-	iterateJSON(mJson);
-}
-}
-mRequest.open("GET", mUrl, true);
-mRequest.send();
-}
-
-
-function iterateJSON(mJson)
-{
-	for( x = 0; x < mJson.images.length; x++)
-	{
-		mImages[x] = new GalleryImage();
-		mImages[x].location = mJson.images[x].imgLocation;
-		mImages[x].description = mJson.images[x].description;
-		mImages[x].date = mJson.images[x].date;
-		mImages[x].img = mJson.images[x].imgPath;
-	}
-}
-
-function GalleryImage() {
-	var location;
-	var description;
-	var date;
-	var img;
-};
-
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 var mRequest = new XMLHttpRequest();
 
+var mImages = []
+
 // Holds the retrived JSON information
 var mJson;
+
+var mUrl = '/images.json';
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
@@ -132,6 +87,8 @@ $(document).ready( function() {
 		of: "#nav"
 	});
 
+});
+
 const urlParams = new URLSearchParams(window.location.search);
 
 for (const [key, value] of urlParams) {
@@ -140,15 +97,61 @@ for (const [key, value] of urlParams) {
 }
 if(mUrl == undefined)
 {
-	mUrl = 'images.json';
+	mUrl = '/images.json';
 }
 
 fetchJSON();
-
-});
 
 window.addEventListener('load', function() {
 	
 	console.log('window loaded');
 
 }, false);
+
+function GalleryImage() {
+	var location;
+	var description;
+	var date;
+	var img;
+};
+
+function iterateJSON(mJson)
+{
+	for( x = 0; x < mJson.images.length; x++)
+	{
+		mImages[x] = new GalleryImage();
+		mImages[x].location = mJson.images[x].imgLocation;
+		mImages[x].description = mJson.images[x].description;
+		mImages[x].date = mJson.images[x].date;
+		mImages[x].img = mJson.images[x].imgPath;
+	}
+}
+
+function fetchJSON()
+{
+mRequest.onreadystatechange = function() {
+	console.log("on ready state change");
+	if (this.readyState == 4 && this.status == 200) {
+	mJson = JSON.parse(mRequest.responseText);
+	iterateJSON(mJson);
+}
+}
+mRequest.open("GET", mUrl, true);
+mRequest.send();
+}
+
+
+function toggleDetails() 
+{
+	if($(".moreIndicator").hasClass("rot90"))
+	{
+		$( ".moreIndicator" ).removeClass("rot90");
+		$(".moreIndicator").addClass("rot270");
+	}
+	else {
+		$( ".moreIndicator" ).removeClass("rot270");
+		$(".moreIndicator").addClass("rot90");
+	}
+	$(".details").slideToggle("slow", "linear");
+}
+
