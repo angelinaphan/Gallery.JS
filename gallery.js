@@ -45,10 +45,8 @@ function swapPhoto() {
 	document.getElementById('photo').src = mImages[mCurrentIndex].img;
 	var loc = document.getElementsByClassName('location');
 	loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
-
 	var des = document.getElementsByClassName('description');
 	des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
-
 	var dt = document.getElementsByClassName('date');
 	dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
@@ -57,34 +55,20 @@ function swapPhoto() {
 	
 };
 
-// Counter for the mImages array
-var mCurrentIndex = 0;
-
-// XMLHttpRequest variable
-var mRequest = new XMLHttpRequest();
-
-// Array holding GalleryImage objects (see below).
-function iterateJSON(mJson)
+function toggleDetails() 
 {
-	for( x = 0; x < mJson.images.length; x++)
+	if($(".moreIndicator").hasClass("rot90"))
 	{
-		mImages[x] = new GalleryImage();
-		mImages[x].location = mJson.images[x].imgLocation;
-		mImages[x].description = mJson.images[x].description;
-		mImages[x].date = mJson.images[x].date;
-		mImages[x].img = mJson.images[x].imgPath;
-
+		$( ".moreIndicator" ).removeClass("rot90");
+		$(".moreIndicator").addClass("rot270");
 	}
+	else {
+		$( ".moreIndicator" ).removeClass("rot270");
+		$(".moreIndicator").addClass("rot90");
+	}
+	$(".details").slideToggle("slow", "linear");
 }
 
-console.log(mImages);
-
-
-// Holds the retrived JSON information
-var mJson;
-
-// URL for the JSON to load by default
-// Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 var mUrl = 'images.json';
 
 function fetchJSON()
@@ -96,10 +80,38 @@ mRequest.onreadystatechange = function() {
 	iterateJSON(mJson);
 }
 }
-
 mRequest.open("GET", mUrl, true);
 mRequest.send();
+}
+
+
+function iterateJSON(mJson)
+{
+	for( x = 0; x < mJson.images.length; x++)
+	{
+		mImages[x] = new GalleryImage();
+		mImages[x].location = mJson.images[x].imgLocation;
+		mImages[x].description = mJson.images[x].description;
+		mImages[x].date = mJson.images[x].date;
+		mImages[x].img = mJson.images[x].imgPath;
+	}
+}
+
+function GalleryImage() {
+	var location;
+	var description;
+	var date;
+	var img;
 };
+
+// Counter for the mImages array
+var mCurrentIndex = 0;
+
+// XMLHttpRequest variable
+var mRequest = new XMLHttpRequest();
+
+// Holds the retrived JSON information
+var mJson;
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
 //@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
@@ -118,13 +130,13 @@ $(document).ready( function() {
 		my: "right bottom",
 		at: "right bottom",
 		of: "#nav"
-	})
-});
+	});
 
 const urlParams = new URLSearchParams(window.location.search);
 
 for (const [key, value] of urlParams) {
 	console.log(`$[key]:$[value]`);
+	mUrl = value;
 }
 if(mUrl == undefined)
 {
@@ -133,31 +145,10 @@ if(mUrl == undefined)
 
 fetchJSON();
 
-
+});
 
 window.addEventListener('load', function() {
 	
 	console.log('window loaded');
 
 }, false);
-
-function GalleryImage() {
-	var location;
-	var description;
-	var date;
-	var img;
-}
-
-function toggleDetails() 
-{
-	if($(".moreIndicator").hasClass("rot90"))
-	{
-		$( ".moreIndicator" ).removeClass("rot90");
-		$(".moreIndicator").addClass("rot270");
-	}
-	else {
-		$( ".moreIndicator" ).removeClass("rot270");
-		$(".moreIndicator").addClass("rot90");
-	}
-	$(".details").slideToggle("slow", "linear");
-};
