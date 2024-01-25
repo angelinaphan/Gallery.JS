@@ -154,4 +154,3 @@ function toggleDetails()
 	}
 	$(".details").slideToggle("slow", "linear");
 }
-
