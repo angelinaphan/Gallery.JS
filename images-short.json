@@ -5,6 +5,7 @@
             "imgLocation": "First image (index 0)",
             "description": "This is the 1st image in the set",
             "date": "01/01/2016"
+
         },
         {
             "imgPath": "http://placehold.it/518x389?text=index+1",
