@@ -140,7 +140,6 @@ mRequest.open("GET", mUrl, true);
 mRequest.send();
 }
 
-
 function toggleDetails() 
 {
 	if($(".moreIndicator").hasClass("rot90"))
@@ -153,4 +152,4 @@ function toggleDetails()
 		$(".moreIndicator").addClass("rot90");
 	}
 	$(".details").slideToggle("slow", "linear");
-}
+};
